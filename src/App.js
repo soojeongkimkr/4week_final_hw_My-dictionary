@@ -8,10 +8,43 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import { Route, Switch, Link } from 'react-router-dom';
 
+import {db} from "./firebase";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+} from 'firebase/firestore'
+
 
 function App() {
   
-  
+  // React.useEffect(async()=> {
+  //   console.log(db)
+
+  //   // 삭제하기
+  //   const docRef = doc(doc, "jpvoca", "DhZH4xKgJg4UC04VvlRW");
+  //   deleteDoc(docRef);
+
+  //   // // 수정하기
+  //   // const docRef = doc(doc, "jpvoca", "7R6fbJ2WPe1mQJSqHKsL");
+  //   // updateDoc(docRef, {check: true})
+
+  //   // // 추가하기
+  //   // addDoc(collection(db,"jpvoca"), {id: 0, jp: '일본어', kr: '의미', sentenceJp:'예문', sentenceKr:'해석'})
+    
+
+  //   // // 가져오기
+  //   // const query = await getDocs(collection(db, "jpvoca"));
+  //   // console.log(query)
+
+  //   // query.forEach((doc)=>{
+  //   //   console.log(doc.id, doc.data())
+  // //   // });
+  // }, []);
 
   return (
     <div className="App">

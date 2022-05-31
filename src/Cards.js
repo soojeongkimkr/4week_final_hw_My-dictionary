@@ -5,15 +5,21 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCheck} from '@fortawesome/free-solid-svg-icons';
 import {faPenToSquare} from '@fortawesome/free-solid-svg-icons'
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
-import { useSelector } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { updateVoca, deleteVoca, loadVocaFB, deleteVocaFB, updateVocaFB } from './redux/modules/voca';
 
 
 const Cards = (props) => {
   // store에서 저장된 state를 가지고 온다.
   const my_vocaList = useSelector((state)=> state.voca.list);
-  
+  // console.log(my_vocaList)
 
+  const dispatch = useDispatch();
+
+  // React.useEffect(()=> {
+  //   dispatch(loadVocaFB());
+  // }, [])
+  
   return(
     <>
     <Wraper>
@@ -25,9 +31,14 @@ const Cards = (props) => {
            <CardHeader>
              <h2>{my_vocaList[idx].jp}</h2>
              <Icons>
-               <FontAwesomeIcon icon={faCheck} className="icon"/>
+               <FontAwesomeIcon icon={faCheck} className="icon" onClick={()=>{
+                dispatch(updateVocaFB(my_vocaList[my_vocaList.length -1].idx))
+               }}/>
                <FontAwesomeIcon icon={faPenToSquare} className="icon"/>
-               <FontAwesomeIcon icon={faTrashCan} className="icon"/>
+               <FontAwesomeIcon icon={faTrashCan} className="icon" onClick={()=>{
+                //  dispatch(deleteVoca(my_vocaList[my_vocaList.length -1].idx ))
+                dispatch(deleteVocaFB((my_vocaList[my_vocaList.length -1]+1).idx));
+               }}/>
              </Icons>
            </CardHeader>
  

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-import { useDispatch } from "react-redux";
-import { createVoca } from "./redux/modules/voca";
+import { useDispatch, useSelector } from "react-redux";
+import { addBucketFB, createVoca } from "./redux/modules/voca";
 import { useHistory } from 'react-router-dom';
 
 const AddCard = (props) => {
@@ -13,19 +13,31 @@ const AddCard = (props) => {
   
 
   const dispatch = useDispatch();
+  const my_vocaList = useSelector((state)=> state.voca.list);
 
+ 
   const addVocaList = () => { 
     // 스프레드 문법! 기억하고 계신가요? :) 
     // 원본 배열 list에 새로운 요소를 추가해주었습니다.
     // setList([...list, text.current.value]);
-    dispatch(createVoca({
+
+    // dispatch(createVoca({
+    //   id: my_vocaList.length === 0 ? 0 : my_vocaList[my_vocaList.length -1].id + 1,
+      // jp: Japanese.current.value,
+      // kr: Korean.current.value,
+      // sentenceJp: Sentence.current.value,
+      // sentenceKr: SentenceKr.current.value,
+      // check: false
+
+    dispatch(addBucketFB({
+      idx: my_vocaList[my_vocaList.length -1].idx +1,
       jp: Japanese.current.value,
       kr: Korean.current.value,
       sentenceJp: Sentence.current.value,
-      sentenceKr: SentenceKr.current.value
-    }));
-
-    }
+      sentenceKr: SentenceKr.current.value,
+      check: false
+    }))
+  }
 
   return(
     <Wraper>
