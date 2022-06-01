@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from "react-redux";
-import { addBucketFB, createVoca } from "./redux/modules/voca";
-import { useHistory } from 'react-router-dom';
+import { addVocaFB } from "./redux/modules/voca";
+import { Link } from 'react-router-dom';
+
 
 const AddCard = (props) => {
-  const history = useHistory();
   const Japanese = React.useRef();
   const Korean = React.useRef();
   const Sentence = React.useRef();
@@ -13,7 +13,7 @@ const AddCard = (props) => {
   
 
   const dispatch = useDispatch();
-  const my_vocaList = useSelector((state)=> state.voca.list);
+  // const my_vocaList = useSelector((state)=> state.voca.list);
 
  
   const addVocaList = () => { 
@@ -29,8 +29,7 @@ const AddCard = (props) => {
       // sentenceKr: SentenceKr.current.value,
       // check: false
 
-    dispatch(addBucketFB({
-      idx: my_vocaList[my_vocaList.length -1].idx +1,
+    dispatch(addVocaFB({
       jp: Japanese.current.value,
       kr: Korean.current.value,
       sentenceJp: Sentence.current.value,
@@ -38,7 +37,7 @@ const AddCard = (props) => {
       check: false
     }))
   }
-
+  
   return(
     <Wraper>
       <Card>
@@ -64,7 +63,7 @@ const AddCard = (props) => {
             <span>해석</span>
             <input type="text" ref={SentenceKr}></input>
           </p>
-          <button onClick={()=>{addVocaList(); history.goBack()}}>저장하기</button>
+          <Link to ="/"><button onClick={addVocaList}>저장하기</button></Link>
         </DetailContent>
 
       </ContentsWraper>

@@ -7,20 +7,18 @@ import styled from 'styled-components';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPlus} from '@fortawesome/free-solid-svg-icons';
 import { Route, Switch, Link } from 'react-router-dom';
+import {useDispatch} from "react-redux";
+import {loadVocaFB} from "./redux/modules/voca";
 
-import {db} from "./firebase";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-} from 'firebase/firestore'
 
 
 function App() {
+  
+  const dispatch = useDispatch();
+  React.useEffect(()=> {
+    dispatch(loadVocaFB());
+  }, [])
+
   
   // React.useEffect(async()=> {
   //   console.log(db)

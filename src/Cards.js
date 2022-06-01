@@ -6,7 +6,7 @@ import {faCheck} from '@fortawesome/free-solid-svg-icons';
 import {faPenToSquare} from '@fortawesome/free-solid-svg-icons'
 import {faTrashCan} from '@fortawesome/free-solid-svg-icons'
 import { useDispatch, useSelector } from 'react-redux';
-import { updateVoca, deleteVoca, loadVocaFB, deleteVocaFB, updateVocaFB } from './redux/modules/voca';
+import { deleteVocaFB, updateVocaFB } from './redux/modules/voca';
 
 
 const Cards = (props) => {
@@ -16,36 +16,32 @@ const Cards = (props) => {
 
   const dispatch = useDispatch();
 
-  // React.useEffect(()=> {
-  //   dispatch(loadVocaFB());
-  // }, [])
-  
+
   return(
     <>
     <Wraper>
-      {my_vocaList.map((list,idx) => {
+      {my_vocaList.map((list,i) => {
       
         return (
-        <Card key={idx}>
+        <Card key={i} check={list.check}>
          <ContentsWraper>
            <CardHeader>
-             <h2>{my_vocaList[idx].jp}</h2>
+             <h2>{my_vocaList[i].jp}</h2>
              <Icons>
                <FontAwesomeIcon icon={faCheck} className="icon" onClick={()=>{
-                dispatch(updateVocaFB(my_vocaList[my_vocaList.length -1].idx))
+                dispatch(updateVocaFB(my_vocaList[i].id))
                }}/>
                <FontAwesomeIcon icon={faPenToSquare} className="icon"/>
                <FontAwesomeIcon icon={faTrashCan} className="icon" onClick={()=>{
                 //  dispatch(deleteVoca(my_vocaList[my_vocaList.length -1].idx ))
-                dispatch(deleteVocaFB((my_vocaList[my_vocaList.length -1]+1).idx));
+                dispatch(deleteVocaFB(my_vocaList[i].id));
                }}/>
              </Icons>
            </CardHeader>
- 
            <DetailContent>
-             <div className='korean'>{my_vocaList[idx].kr}</div>
-             <div>{my_vocaList[idx].sentenceJp}</div>
-             <div>{my_vocaList[idx].sentenceKr}</div>
+             <div className='korean'>{my_vocaList[i].kr}</div>
+             <div>{my_vocaList[i].sentenceJp}</div>
+             <div>{my_vocaList[i].sentenceKr}</div>
            </DetailContent>
          </ContentsWraper>
        </Card>
@@ -75,7 +71,7 @@ const Wraper = styled.div`
 const Card = styled.div`
   margin: 2em ;
   padding: 0 2em;
-  background-color:#fff;
+  background-color:${(props)=> props.check ? "#483d8b" : "#fff"};
   border-radius: 20px;
   @media (min-width: 600px){
     flex-basis: 20%;
@@ -90,6 +86,7 @@ const ContentsWraper = styled.div`
   margin-bottom: 1.5em;
 `;
 const CardHeader = styled.div`
+  color: ${(props)=> props.check ? "#fff" : "#222"};
   display: flex;
   flex-grow:1;
   align-items:center;
@@ -108,9 +105,9 @@ const Icons = styled.div`
 `;
 const DetailContent = styled.div`
   text-align: left;
-  color: darkblue;
+  color: ${(props)=> props.check ? "#fff" : "#blue"};
   .korean{
-    color:#222;
+    color: ${(props)=> props.check ? "fff" : "#222"};
     font-size: 1.2em;
     font-weight: bold;
     margin-bottom: 0.5em;
